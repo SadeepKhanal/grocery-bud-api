@@ -27,7 +27,7 @@ services:
           name: grocery-bud-db
           property: connectionString
 
-  - type: static_site
+  - type: web
     name: grocery-bud-frontend
     runtime: static
     rootDir: frontend
