@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-xlodeh=84up5mv$3@w@q_*k1s*4)7a0#q0qwc($u2n!tvrilp$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["grocery-bud-api.onrender.com"]
 
 
 # Application definition
@@ -71,7 +72,11 @@ TEMPLATES = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    "https://grocery-bud-frontend.onrender.com", 
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://grocery-bud-frontend.onrender.com",
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
@@ -123,3 +128,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

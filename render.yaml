@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: grocery-bud-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: bash build.sh
+    startCommand: gunicorn grocery.wsgi:application
+    healthCheckPath: /api/health/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+      - key: FRONTEND_URL
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: grocery-bud-db
+          property: connectionString
+
+  - type: static_site
+    name: grocery-bud-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://grocery-bud-api.onrender.com/api/grocery
+
+databases:
+  - name: grocery-bud-db
+    plan: free
