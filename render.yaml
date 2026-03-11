@@ -1,11 +1,11 @@
 services:
   - type: web
-    name: grocery-bud-api
+    name: drf-crud-api
     runtime: python
     plan: free
     rootDir: backend
     buildCommand: bash build.sh
-    startCommand: gunicorn grocery.wsgi:application
+    startCommand: gunicorn drf_crud.wsgi:application
     healthCheckPath: /api/health/
     envVars:
       - key: PYTHON_VERSION
@@ -24,7 +24,7 @@ services:
         sync: false
       - key: DATABASE_URL
         fromDatabase:
-          name: grocery-bud-db
+          name: drf-crud-db
           property: connectionString
 
   - type: web
@@ -39,8 +39,8 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        value: https://grocery-bud-api.onrender.com/api/grocery
+        sync: false
 
 databases:
-  - name: grocery-bud-db
+  - name: drf-crud-db
     plan: free
