@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: drf-crud-api
+    name: grocery-backend
     runtime: python
     plan: free
     rootDir: backend
-    buildCommand: bash build.sh
-    startCommand:  gunicorn backend.wsgi:application
-    healthCheckPath: /api/health/
+    buildCommand: pip install -r requirements.txt && python manage.py migrate
+    startCommand: gunicorn backend.wsgi:application
+    healthCheckPath: /api/grocery/
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.8
@@ -17,18 +17,18 @@ services:
       - key: ALLOWED_HOSTS
         value: .onrender.com
       - key: FRONTEND_URL
-        sync: false
+        value: https://grocery-bud-frontend.onrender.com
       - key: CORS_ALLOWED_ORIGINS
-        sync: false
+        value: https://grocery-bud-frontend.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        sync: false
+        value: https://grocery-bud-frontend.onrender.com
       - key: DATABASE_URL
         fromDatabase:
-          name: drf-crud-db
+          name: grocery-db
           property: connectionString
 
   - type: web
-    name: grocery-bud-frontend
+    name: grocery-frontend
     runtime: static
     rootDir: frontend
     buildCommand: npm ci && npm run build
@@ -39,8 +39,8 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        sync: false
+        value: https://grocery-backend.onrender.com/api/grocery
 
 databases:
-  - name: drf-crud-db
+  - name: grocery-db
     plan: free
