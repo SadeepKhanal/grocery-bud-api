@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-xlodeh=84up5mv$3@w@q_*k1s*4)7a0#q0qwc($u2n!tvrilp$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["grocery-bud-api.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost","grocery-bud-api.onrender.com"]
 
 
 # Application definition

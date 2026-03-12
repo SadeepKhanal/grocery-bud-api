@@ -1,18 +1,25 @@
 import Items from "./components/Items";
-import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import { nanoid } from "nanoid";
 import Form from "./components/Form";
 
-const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/grocery"
-).replace(/\/$/, "");
+// Use environment variable for dev, or dynamic URL for production
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || `${window.location.origin}/api/grocery`;
 
 const App = () => {
   const [items, setItems] = useState([]);
   const [editId, setEditId] = useState(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (editId && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [editId]);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -27,12 +34,6 @@ const App = () => {
     };
     fetchItems();
   }, []);
-
-  useEffect(() => {
-    if (editId && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [editId]);
 
   const addItem = async (itemName) => {
     try {
@@ -58,7 +59,7 @@ const App = () => {
       if (!res.ok) throw new Error();
       const updated = await res.json();
       setItems((prev) =>
-        prev.map((item) => (item.id === itemId ? updated.data : item))
+        prev.map((item) => (item.id === itemId ? updated.data : item)),
       );
     } catch {
       toast.error("Could not update item");
@@ -86,7 +87,7 @@ const App = () => {
       if (!res.ok) throw new Error();
       const updated = await res.json();
       setItems((prev) =>
-        prev.map((item) => (item.id === editId ? updated.data : item))
+        prev.map((item) => (item.id === editId ? updated.data : item)),
       );
       setEditId(null);
       toast.success("Item updated");
@@ -98,7 +99,6 @@ const App = () => {
   return (
     <section className="section-center">
       <ToastContainer position="top-center" />
-
       <Form
         addItem={addItem}
         updateItemName={updateItemName}
@@ -106,7 +106,6 @@ const App = () => {
         itemToEdit={items.find((item) => item.id === editId)}
         inputRef={inputRef}
       />
-
       <Items
         items={items}
         editCompleted={editCompleted}
