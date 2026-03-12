@@ -7,9 +7,9 @@ import { nanoid } from "nanoid";
 import Form from "./components/Form";
 
 // Use environment variable for dev, or dynamic URL for production
-const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || `${window.location.origin}/api/grocery`;
-
+const BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/grocery"
+).replace(/\/$/, "");
 const App = () => {
   const [items, setItems] = useState([]);
   const [editId, setEditId] = useState(null);

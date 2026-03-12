@@ -7,17 +7,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
-    "django-insecure-default-key-for-local-dev"  # fallback for local dev
+    "django-insecure-default-key-for-local-dev"
 )
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-# Hosts
+# ALLOWED_HOSTS: comma-separated in env, fallback for local dev
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,grocery-bud-api.onrender.com"
+    "127.0.0.1,localhost,grocery-bud-api.onrender.com,frontend-on-railway-url.up.railway.app"
 ).split(",")
 
-# Application definition
+# Installed apps
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -86,13 +86,10 @@ STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # CORS and CSRF
-FRONTEND_URL = os.environ.get(
-    "FRONTEND_URL", "http://localhost:5173"
-)  # local React dev port fallback
+FRONTEND_URLS = os.environ.get(
+    "FRONTEND_URLS",
+    "http://localhost:5173,https://grocery-bud-frontend.onrender.com,https://frontend-on-railway-url.up.railway.app"
+).split(",")
 
-CORS_ALLOWED_ORIGINS = [
-    FRONTEND_URL,
-    "https://grocery-bud-frontend.onrender.com",  # production frontend
-]
-
-CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS.copy()
+CORS_ALLOWED_ORIGINS = FRONTEND_URLS
+CSRF_TRUSTED_ORIGINS = FRONTEND_URLS
