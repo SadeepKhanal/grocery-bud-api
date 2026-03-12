@@ -5,7 +5,7 @@ services:
     plan: free
     rootDir: backend
     buildCommand: bash build.sh
-    startCommand: gunicorn drf_crud.wsgi:application
+    startCommand:  gunicorn backend.wsgi:application
     healthCheckPath: /api/health/
     envVars:
       - key: PYTHON_VERSION
