@@ -1,0 +1,18 @@
+{
+  "services": [
+    {
+      "name": "grocery-backend",
+      "rootDirectory": "backend",
+      "startCommand": "gunicorn backend.wsgi:application",
+      "buildCommand": "pip install -r requirements.txt && python manage.py migrate",
+      "env": ["DATABASE_URL", "SECRET_KEY", "DEBUG", "ALLOWED_HOSTS", "FRONTEND_URLS"]
+    },
+    {
+      "name": "grocery-frontend",
+      "rootDirectory": "frontend",
+      "buildCommand": "npm ci && npm run build",
+      "publishDirectory": "dist",
+      "env": ["VITE_API_BASE_URL"]
+    }
+  ]
+}
