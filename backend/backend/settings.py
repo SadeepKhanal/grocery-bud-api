@@ -15,8 +15,9 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
     "127.0.0.1,localhost",
+    "grocery-bud-api.onrender.com"
 ).split(",")
-
+    
 # Installed apps
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -88,7 +89,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # CORS and CSRF
 FRONTEND_URLS = os.environ.get(
     "FRONTEND_URLS",
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://grocery-bud-api.vercel.app/"
 ).split(",")
 
 CORS_ALLOWED_ORIGINS = FRONTEND_URLS
