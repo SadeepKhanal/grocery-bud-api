@@ -14,8 +14,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 # ALLOWED_HOSTS: comma-separated in env, fallback for local dev
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,grocery-bud-api.onrender.com,frontend-on-railway-url.up.railway.app",
-    "grocery-bud-api.onrender.com"
+    "127.0.0.1,localhost",
 ).split(",")
 
 # Installed apps
@@ -89,7 +88,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # CORS and CSRF
 FRONTEND_URLS = os.environ.get(
     "FRONTEND_URLS",
-    "http://localhost:5173,https://grocery-bud-frontend.onrender.com,https://frontend-on-railway-url.up.railway.app"
+    "http://localhost:5173"
 ).split(",")
 
 CORS_ALLOWED_ORIGINS = FRONTEND_URLS
