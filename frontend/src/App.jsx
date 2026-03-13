@@ -3,12 +3,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { nanoid } from "nanoid";
+// import { nanoid } from "nanoid";
 import Form from "./components/Form";
 
 // Use environment variable for dev, or dynamic URL for production
 const BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/grocery"
+  import.meta.env.VITE_API_BASE_URL || "https://grocery-bud-api.onrender.com/api/grocery"
 ).replace(/\/$/, "");
 const App = () => {
   const [items, setItems] = useState([]);
