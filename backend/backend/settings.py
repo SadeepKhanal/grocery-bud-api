@@ -14,10 +14,9 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 # ALLOWED_HOSTS: comma-separated in env, fallback for local dev
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost",
-    "grocery-bud-api.onrender.com"
+    "127.0.0.1,localhost,grocery-bud-api.onrender"
 ).split(",")
-    
+
 # Installed apps
 INSTALLED_APPS = [
     "django.contrib.admin",
