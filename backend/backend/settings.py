@@ -14,7 +14,8 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 # ALLOWED_HOSTS: comma-separated in env, fallback for local dev
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,grocery-bud-api.onrender.com,frontend-on-railway-url.up.railway.app"
+    "127.0.0.1,localhost,grocery-bud-api.onrender.com,frontend-on-railway-url.up.railway.app",
+    "grocery-bud-api.onrender.com"
 ).split(",")
 
 # Installed apps
